@@ -1,49 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
-<Package
-  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
-  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
-  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
-  IgnorableNamespaces="uap mp">
-
-  <Identity
-    Name="dfc432c3-9e48-4377-a088-9cdf2315730a"
-    Publisher="CN=robom"
-    Version="1.0.0.0" />
-
-  <mp:PhoneIdentity PhoneProductId="dfc432c3-9e48-4377-a088-9cdf2315730a" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
-
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
+  <Identity Name="dfc432c3-9e48-4377-a088-9cdf2315730a" Publisher="CN=robom" Version="1.0.0.0" />
+  <mp:PhoneIdentity PhoneProductId="dfc432c3-9e48-4377-a088-9cdf2315730a" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>AppendToTextFile</DisplayName>
     <PublisherDisplayName>robom</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
-
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
   </Dependencies>
-
   <Resources>
-    <Resource Language="x-generate"/>
+    <Resource Language="x-generate" />
   </Resources>
-
   <Applications>
-    <Application Id="App"
-      Executable="$targetnametoken$.exe"
-      EntryPoint="AppendToTextFile.App">
-      <uap:VisualElements
-        DisplayName="AppendToTextFile"
-        Square150x150Logo="Assets\Square150x150Logo.png"
-        Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="AppendToTextFile"
-        BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="AppendToTextFile.App">
+      <uap:VisualElements DisplayName="AppendToTextFile" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="AppendToTextFile" BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
+        </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.shareTarget">
+          <uap:ShareTarget>
+            <uap:SupportedFileTypes>
+              <uap:FileType>.txt</uap:FileType>
+            </uap:SupportedFileTypes>
+            <uap:DataFormat>Text</uap:DataFormat>
+            <uap:DataFormat>URI</uap:DataFormat>
+          </uap:ShareTarget>
+        </uap:Extension>
+      </Extensions>
     </Application>
   </Applications>
-
-  <Capabilities>
-    <Capability Name="internetClient" />
-  </Capabilities>
 </Package>

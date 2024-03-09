@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.DataTransfer.ShareTarget;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -95,6 +96,15 @@ namespace AppendToTextFile
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        protected override async void OnShareTargetActivated(ShareTargetActivatedEventArgs args)
+        {
+            ShareOperation shareOperation = args.ShareOperation;
+            shareOperation.ReportStarted();
+            AppendFileThingies thingies = new AppendFileThingies();
+            await thingies.AppendToFile(await shareOperation.Data.GetTextAsync());
+            shareOperation.ReportCompleted();
         }
     }
 }
