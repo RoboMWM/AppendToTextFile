@@ -10,7 +10,7 @@ namespace AppendToTextFile
 {
     public class AppendFileThingies
     {
-        public async void AppendToFile(string textToAppend)
+        public async Task AppendToFile(string textToAppend)
         {
             StorageFolder localFolder = ApplicationData.Current.LocalFolder;
             StringBuilder sb = new StringBuilder();

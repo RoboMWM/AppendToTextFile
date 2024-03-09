@@ -34,12 +34,12 @@ namespace AppendToTextFile
             this.InitializeComponent();
         }
 
-        private void AppendButton_Click(object sender, RoutedEventArgs e)
+        private async void AppendButton_Click(object sender, RoutedEventArgs e)
         {
             if (appendTextBox.Text.Length == 0)
                 return;
 
-            thingies.AppendToFile(appendTextBox.Text);
+            await thingies.AppendToFile(appendTextBox.Text);
         }
 
         private async void PrintButton_Click(object sender, RoutedEventArgs e)
