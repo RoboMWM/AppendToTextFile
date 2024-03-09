@@ -27,8 +27,10 @@ namespace AppendToTextFile
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        AppendFileThingies thingies;
         public MainPage()
         {
+            thingies = new AppendFileThingies();
             this.InitializeComponent();
         }
 
@@ -37,42 +39,12 @@ namespace AppendToTextFile
             if (appendTextBox.Text.Length == 0)
                 return;
 
-            AppendToFile(appendTextBox.Text);
+            thingies.AppendToFile(appendTextBox.Text);
         }
 
         private async void PrintButton_Click(object sender, RoutedEventArgs e)
         {
-            fileContentsTextBox.Text = await GetAppendFileAsync();
-        }
-
-        private async void AppendToFile(string textToAppend)
-        {
-            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine(textToAppend);
-            try
-            {
-                StorageFile appendFile = await localFolder.CreateFileAsync("append.txt", CreationCollisionOption.OpenIfExists);
-                await FileIO.AppendTextAsync(appendFile, sb.ToString());
-            }
-            catch (Exception e)
-            {
-                await new MessageDialog("error occurred when appending text: " + e.Message, "uh oh spaghettio").ShowAsync();
-            }
-        }
-
-        private async Task<string> GetAppendFileAsync()
-        {
-            try
-            {
-                StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-                StorageFile appendFile = await localFolder.GetFileAsync("append.txt");
-                return await FileIO.ReadTextAsync(appendFile);
-            }
-            catch (Exception e)
-            {
-                return e.Message;
-            }
+            fileContentsTextBox.Text = await thingies.GetAppendFileAsync();
         }
 
         private void CopyButton_Click(object sender, RoutedEventArgs e)
