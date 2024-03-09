@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.ApplicationModel.DataTransfer.ShareTarget;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -103,7 +104,12 @@ namespace AppendToTextFile
             ShareOperation shareOperation = args.ShareOperation;
             shareOperation.ReportStarted();
             AppendFileThingies thingies = new AppendFileThingies();
-            await thingies.AppendToFile(await shareOperation.Data.GetTextAsync());
+            if (shareOperation.Data.Contains(StandardDataFormats.Text))
+                await thingies.AppendToFile(await shareOperation.Data.GetTextAsync());
+            if (shareOperation.Data.Contains(StandardDataFormats.ApplicationLink))
+                await thingies.AppendToFile((await shareOperation.Data.GetApplicationLinkAsync()).ToString());
+            if (shareOperation.Data.Contains(StandardDataFormats.WebLink))
+                await thingies.AppendToFile((await shareOperation.Data.GetWebLinkAsync()).ToString());
             shareOperation.ReportCompleted();
         }
     }
