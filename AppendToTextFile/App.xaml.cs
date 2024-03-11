@@ -102,10 +102,13 @@ namespace AppendToTextFile
         protected override async void OnShareTargetActivated(ShareTargetActivatedEventArgs args)
         {
             ShareOperation shareOperation = args.ShareOperation;
-            shareOperation.ReportStarted();
             AppendFileThingies thingies = new AppendFileThingies();
             if (shareOperation.Data.Contains(StandardDataFormats.Text))
-                await thingies.AppendToFile(await shareOperation.Data.GetTextAsync());
+            {
+                string text = await shareOperation.Data.GetTextAsync();
+                await thingies.AppendToFile(text);
+                thingies.SendToast(text);
+            }
             if (shareOperation.Data.Contains(StandardDataFormats.ApplicationLink))
                 await thingies.AppendToFile((await shareOperation.Data.GetApplicationLinkAsync()).ToString());
             if (shareOperation.Data.Contains(StandardDataFormats.WebLink))

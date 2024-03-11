@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.Notifications;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.UI.Notifications;
 using Windows.UI.Popups;
 
 namespace AppendToTextFile
@@ -22,7 +24,7 @@ namespace AppendToTextFile
             }
             catch (Exception e)
             {
-                await new MessageDialog("error occurred when appending text: " + e.Message, "uh oh spaghettio").ShowAsync();
+                SendToast("error occurred when appending text: " + e.Message);
             }
         }
 
@@ -38,6 +40,40 @@ namespace AppendToTextFile
             {
                 return e.Message;
             }
+        }
+
+        /// <summary>
+        /// Simple method to show a basic toast with a message.
+        /// </summary>
+        /// <param name="message"></param>
+        public void SendToast(string message)
+        {
+            ToastContent content = new ToastContent()
+            {
+                Visual = new ToastVisual()
+                {
+                    BindingGeneric = new ToastBindingGeneric()
+                    {
+                        Children =
+                        {
+                            new AdaptiveText()
+                            {
+                                Text = message
+                            }
+                        }
+                    }
+                },
+
+                //Audio = new ToastAudio()
+                //{
+                //    Src = new Uri(sound)
+                //}
+            };
+
+            ToastNotification toast = new ToastNotification(content.GetXml());
+            //toast.ExpirationTime = DateTime.Now.AddSeconds(600);
+
+            ToastNotificationManager.CreateToastNotifier().Show(toast);
         }
     }
 }
