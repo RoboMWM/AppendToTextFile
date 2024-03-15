@@ -42,6 +42,20 @@ namespace AppendToTextFile
             }
         }
 
+        public async Task deleteFileAsync()
+        {
+            try
+            {
+                StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+                StorageFile appendFile = await localFolder.GetFileAsync("append.txt");
+                await appendFile.DeleteAsync();
+            }
+            catch (Exception e)
+            {
+                SendToast("error occurred when deleting file: " + e.Message);
+            }
+        }
+
         /// <summary>
         /// Simple method to show a basic toast with a message.
         /// </summary>

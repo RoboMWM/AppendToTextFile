@@ -55,5 +55,31 @@ namespace AppendToTextFile
             dataPackage.SetText(fileContentsTextBox.Text);
             Clipboard.SetContent(dataPackage);
         }
+
+        private async void ClearButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageDialog deletePrompt = new MessageDialog("Delete the entire text file, clearing its contents? This is a destructive action.", "Delete text file");
+            deletePrompt.Commands.Add(new UICommand("Delete", new UICommandInvokedHandler(this.deleteFileCommandHandler)));
+            deletePrompt.Commands.Add(new UICommand("Cancel", new UICommandInvokedHandler(this.deleteFileCommandHandler)));
+            // Set the command that will be invoked by default
+            deletePrompt.DefaultCommandIndex = 1;
+            // Set the command to be invoked when escape is pressed
+            deletePrompt.CancelCommandIndex = 1;
+
+            await deletePrompt.ShowAsync();
+        }
+
+        private async void deleteFileCommandHandler(IUICommand command)
+        {
+            switch (command.Label)
+            {
+                case "Delete":
+                    await thingies.deleteFileAsync();
+                    break;
+                case "Cancel":
+                default:
+                    return;
+            }
+        }
     }
 }
