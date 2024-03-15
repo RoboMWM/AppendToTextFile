@@ -19,8 +19,8 @@
             <Button Name="printButton" Content="Retrieve text file contents" Click="PrintButton_Click"/>
             <Button Name="copyButton" Content="Select All + Copy to Clipboard" Click="CopyButton_Click"/>
         </StackPanel>
-        <ScrollViewer>
-            <TextBlock Name="fileContentsTextBox" Grid.Row="1"/>
+        <ScrollViewer Grid.Row="1">
+            <TextBlock Name="fileContentsTextBox"/>
         </ScrollViewer>
     </Grid>
 </Page>
