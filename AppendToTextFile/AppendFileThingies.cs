@@ -34,7 +34,19 @@ namespace AppendToTextFile
             {
                 StorageFolder localFolder = ApplicationData.Current.LocalFolder;
                 StorageFile appendFile = await localFolder.GetFileAsync("append.txt");
-                return await FileIO.ReadTextAsync(appendFile);
+                return await GetFileAsync(appendFile);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+
+        public async Task<string> GetFileAsync(StorageFile file)
+        {
+            try
+            {
+                return await FileIO.ReadTextAsync(file);
             }
             catch (Exception e)
             {

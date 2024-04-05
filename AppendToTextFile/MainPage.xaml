@@ -10,13 +10,14 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="180"/>
+            <RowDefinition Height="240"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Vertical" Margin="10, 10, 10, 10" Grid.Row="0">
             <TextBox Name="appendTextBox" PlaceholderText="Enter text to append here..."/>
             <Button Name="appendButton" Content="Append to text file" Click="AppendButton_Click"/>
             <Button Name="printButton" Content="Retrieve text file contents" Click="PrintButton_Click"/>
+            <Button Name="pickButton" Content="Open File" Click="PickButton_Click"/>
             <Button Name="copyButton" Content="Copy to Clipboard" Click="CopyButton_Click"/>
             <Button Name="clearButton" Content="Delete text file" Click="ClearButton_Click"/>
         </StackPanel>
